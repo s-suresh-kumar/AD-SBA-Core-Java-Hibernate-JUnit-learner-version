@@ -58,4 +58,29 @@ public class CourseService implements CourseI {
 
         return course;
     }
+
+    @Override
+    public List<Course> getAllCourses(){
+        SessionFactory sessionFactory;
+        Session session = null;
+        List<Course> courses = null;
+
+        try {
+            sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            courses =
+                    session.createQuery("FROM Course", Course.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return courses;
+
+    }
+    
 }
