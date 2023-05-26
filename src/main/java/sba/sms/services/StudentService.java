@@ -34,4 +34,30 @@ public class StudentService  implements StudentI {
         return students;
     }
 
+    @Override
+    public void createStudent(Student student){
+        SessionFactory sessionFactory;
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+
+            session.persist(student);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 }
