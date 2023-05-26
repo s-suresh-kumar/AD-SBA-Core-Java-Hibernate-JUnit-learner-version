@@ -35,5 +35,10 @@ public class Course {
         this.instructor = instructor;
         this.students = students;
     }
+
+    public Course(String name, String instructor) {
+        this.name = name;
+        this.instructor = instructor;
+    }
     
 }
