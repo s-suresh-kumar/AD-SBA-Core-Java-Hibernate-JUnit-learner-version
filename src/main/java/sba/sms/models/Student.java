@@ -28,4 +28,12 @@ public class Student {
 
     public Student() {  
     }
+
+    public Student(String email, String name, String password, List<Course> courses) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.courses = courses;
+    }
+    
 }
