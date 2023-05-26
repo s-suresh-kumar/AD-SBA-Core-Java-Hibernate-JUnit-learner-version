@@ -148,4 +148,35 @@ public class StudentService  implements StudentI {
         }
     }
 
+    @Override
+    public List<Course> getStudentCourses(String email){
+        SessionFactory sessionFactory;
+        Session session = null;
+        List<Course> courses = null;
+
+        try {
+            sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            courses = session.createNativeQuery(
+                            "SELECT c.* FROM Course c " +
+                                    "INNER JOIN student_courses sc ON c.id" +
+                                    " = sc.course_id " +
+                                    "INNER JOIN Student s ON sc" +
+                                    ".student_email = s.email " +
+                                    "WHERE s.email = :email", Course.class)
+                    .setParameter("email", email)
+
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return courses;
+
+    }
 }
