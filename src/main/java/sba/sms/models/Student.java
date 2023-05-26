@@ -73,5 +73,13 @@ public class Student {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
