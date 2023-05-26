@@ -35,5 +35,10 @@ public class Student {
         this.password = password;
         this.courses = courses;
     }
-    
+
+    public Student(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
 }
