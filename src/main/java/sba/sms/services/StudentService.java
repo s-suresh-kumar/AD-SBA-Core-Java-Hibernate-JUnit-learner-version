@@ -110,4 +110,42 @@ public class StudentService  implements StudentI {
 
         return student != null;
     }
+
+    @Override
+    public void registerStudentToCourse(String email, int courseId){
+        SessionFactory sessionFactory;
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+
+            Student student = session.createQuery("FROM Student WHERE " +
+                            "email = :email", Student.class)
+                    .setParameter("email", email)
+                    .uniqueResult();
+
+            Course course = session.get(Course.class, (long) courseId);
+
+            if (student != null && course != null) {
+                student.addCourse(course);
+                session.persist(student);
+                session.persist(course);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 }
