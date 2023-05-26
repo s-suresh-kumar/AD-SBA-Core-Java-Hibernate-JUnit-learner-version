@@ -74,6 +74,11 @@ public class Student {
         this.courses = courses;
     }
 
+    public void addCourse(Course course){
+        courses.add(course);
+        course.getStudents().add(this);
+    }
+
     @Override
     public String toString() {
         return "Student{" +
