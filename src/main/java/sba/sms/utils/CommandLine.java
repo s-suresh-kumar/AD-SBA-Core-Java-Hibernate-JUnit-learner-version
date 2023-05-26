@@ -12,7 +12,7 @@ public class CommandLine {
 
     // private static final String PASSWORD = "password";
     public static void addData() {
-
+        String PASSWORD = "password";
         StudentService studentService = new StudentService();
         CourseService courseService = new CourseService();
         String instructorPhillip = "Phillip Witkin";
