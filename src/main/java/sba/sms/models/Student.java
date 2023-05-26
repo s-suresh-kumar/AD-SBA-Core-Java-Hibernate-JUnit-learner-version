@@ -82,4 +82,17 @@ public class Student {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return getEmail().equals(student.getEmail()) && getName().equals(student.getName()) && getPassword().equals(student.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail(), getName(), getPassword());
+    }
 }
