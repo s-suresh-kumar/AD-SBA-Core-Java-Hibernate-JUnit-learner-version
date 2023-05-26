@@ -84,5 +84,30 @@ public class StudentService  implements StudentI {
 
         return student;
     }
-    
+
+    @Override
+    public boolean validateStudent(String email, String password){
+        SessionFactory sessionFactory;
+        Session session = null;
+        Student student = null;
+
+        try {
+            sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            student = session.createQuery("FROM Student WHERE email = " +
+                            ":email AND password = :password", Student.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return student != null;
+    }
 }
