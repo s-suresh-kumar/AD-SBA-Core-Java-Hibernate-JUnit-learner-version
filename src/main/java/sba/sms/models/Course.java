@@ -26,4 +26,7 @@ public class Course {
             =FetchType.EAGER)
     private List<Student> students = new ArrayList<>();
 
+    public Course() {
+    }
+
 }
