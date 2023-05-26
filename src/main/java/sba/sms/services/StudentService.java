@@ -60,4 +60,29 @@ public class StudentService  implements StudentI {
         }
     }
 
+@Override
+    public Student getStudentByEmail(String email){
+        SessionFactory sessionFactory;
+        Session session = null;
+        Student student = null;
+
+        try {
+            sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            student = session.createQuery("FROM Student WHERE email = :email",
+                            Student.class)
+                    .setParameter("email", email)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return student;
+    }
+    
 }
