@@ -11,6 +11,7 @@ import sba.sms.utils.HibernateUtil;
 import java.util.List;
 
 public class CourseService implements CourseI {
+    @Override
     public void createCourse(Course course){
         SessionFactory sessionFactory;
         Session session = null;
@@ -36,4 +37,25 @@ public class CourseService implements CourseI {
         }
     }
 
+  @Override
+  public Course getCourseById(int courseId){
+        SessionFactory sessionFactory;
+        Session session = null;
+        Course course = null;
+
+        try {
+            sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            course = session.get(Course.class, (long) courseId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return course;
+    }
 }
